@@ -1,0 +1,20 @@
+#build runs on a push to *any* branch
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+- name: service_connection
+  value: platform-images
+
+container:
+  image: iacdev000acr000.azurecr.io/platform-images:latest
+  endpoint: platform-images
+
+steps:
+- checkout: self
+  persistCredentials: true
+- script: |
+    make GIT_TOKEN=$(System.AccessToken) configure
+    make check
+    make clean
+    
