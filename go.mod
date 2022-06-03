@@ -1,4 +1,4 @@
-module github.com/nexient-llc/tf-az-module-storage_account
+module github.com/nexient-llc/tf-azurerm-module-storage_account
 
 go 1.15
 
