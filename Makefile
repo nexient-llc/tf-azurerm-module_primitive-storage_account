@@ -5,6 +5,8 @@ REPO_MANIFEST ?= tf_modules.xml
 # Set to true in a pipeline context
 IS_PIPELINE ?= false
 
+IS_AUTHENTICATED ?= false
+
 JOB_NAME ?= job
 JOB_EMAIL ?= job@job.job
 
@@ -18,24 +20,32 @@ configure-git-hooks:
 ifeq ($(IS_PIPELINE),true)
 .PHONY: git-config
 git-config:
+	@set -ex; \
+	git config --global user.name "$(JOB_NAME)"; \
+	git config --global user.email "$(JOB_EMAIL)"; \
+	git config --global color.ui false
+
+configure: git-config
+endif
+
+ifeq ($(IS_AUTHENTICATED),true)
+.PHONY: git-auth
+git-auth:
 	$(call config,Bearer $(GIT_TOKEN))
 
 define config
 	@set -ex; \
 	git config --global http.extraheader "AUTHORIZATION: $(1)"; \
 	git config --global http.https://gerrit.googlesource.com/git-repo/.extraheader ''; \
-	git config --global http.version HTTP/1.1; \
-	git config --global user.name "$(JOB_NAME)"; \
-	git config --global user.email "$(JOB_EMAIL)"; \
-	git config --global color.ui false
+	git config --global http.version HTTP/1.1;
 endef
 
-configure: git-config
+configure: git-auth
 endif
 
 .PHONY: configure
 configure: configure-git-hooks
-	repo init \
+	repo --color=never init \
 		-u "$(REPO_MANIFESTS_URL)" \
 		-b "$(REPO_BRANCH)" \
 		-m "$(REPO_MANIFEST)"
