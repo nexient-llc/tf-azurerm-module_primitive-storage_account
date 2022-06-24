@@ -1,0 +1,33 @@
+# This file is managed by https://github.com/nexient-llc/.github/
+
+# DO NOT make changes to this file directly from within any other
+# repo then mentioned above as they will be overwritten upon the
+# next sync.
+
+name: pipeline-release
+on:
+  pull_request:
+    branches:
+      - 'main'
+    types:
+      - closed
+    paths:
+      - '**'
+      - '!.github/**'
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == true
+    container:
+      image: nexientdevops/platform-images
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0 # pull entire history to ensure pre-merge functions properly
+      - uses: nexient-llc/.github/actions/configure@main
+      - uses: nexient-llc/.github/actions/check@main
+      - uses: nexient-llc/.github/actions/pre-merge@main
+      - uses: nexient-llc/.github/actions/release@main
+        with:
+          mode: "git-branch"
