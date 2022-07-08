@@ -4,6 +4,13 @@
 # repo then mentioned above as they will be overwritten upon the
 # next sync.
 
+# NOTE: we are temporarily throwing the kitchen sink of variables
+# at the workflow until we come up with a better solution at a
+# future date.
+env:
+  TF_VAR_github_org: ${{ secrets.TF_VAR_GITHUB_ORG }}
+  TF_VAR_github_token:  ${{ secrets.TF_VAR_GITHUB_TOKEN }}
+
 name: pipeline-check
 on:
   push:
