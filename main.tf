@@ -3,9 +3,57 @@ resource "azurerm_storage_account" "storage_account" {
   resource_group_name = var.resource_group.name
   location            = var.resource_group.location
 
-  account_tier             = var.storage_account.account_tier
-  account_replication_type = var.storage_account.account_replication_type
-  tags                     = var.storage_account.tags
+  account_tier              = var.storage_account.account_tier
+  account_replication_type  = var.storage_account.account_replication_type
+  enable_https_traffic_only = var.enable_https_traffic_only
+  access_tier               = var.access_tier
+  account_kind              = var.account_kind
+
+  dynamic "static_website" {
+    for_each = local.static_website
+    content {
+      index_document     = static_website.value.index_document
+      error_404_document = static_website.value.error_404_document
+    }
+  }
+
+  dynamic "blob_properties" {
+    # Valid only for account_kind = BlockBlobStorage or StorageV2
+    for_each = ((var.account_kind == "BlockBlobStorage" || var.account_kind == "StorageV2") ? [1] : [])
+    content {
+      versioning_enabled       = var.blob_versioning_enabled
+      change_feed_enabled      = var.blob_change_feed_enabled
+      last_access_time_enabled = var.blob_last_access_time_enabled
+
+      dynamic "container_delete_retention_policy" {
+        for_each = (var.blob_container_delete_retention_policy == 0 ? [] : [1])
+        content {
+          days = var.blob_container_delete_retention_policy
+        }
+      }
+
+      dynamic "delete_retention_policy" {
+        for_each = (var.blob_delete_retention_policy == 0 ? [] : [1])
+        content {
+          days = var.blob_delete_retention_policy
+        }
+      }
+
+      dynamic "cors_rule" {
+        for_each = (var.blob_cors_rule == null ? {} : var.blob_cors_rule)
+        content {
+          allowed_headers    = cors_rule.value.allowed_headers
+          allowed_methods    = cors_rule.value.allowed_methods
+          allowed_origins    = cors_rule.value.allowed_origins
+          exposed_headers    = cors_rule.value.exposed_headers
+          max_age_in_seconds = cors_rule.value.max_age_in_seconds
+        }
+      }
+    }
+  }
+
+
+  tags = var.storage_account.tags
 }
 
 resource "azurerm_storage_container" "storage_containers" {
@@ -20,5 +68,11 @@ resource "azurerm_storage_share" "storage_shares" {
   for_each             = var.storage_shares
   name                 = each.value.name
   storage_account_name = azurerm_storage_account.storage_account.name
-  quota                 = each.value.quota
+  quota                = each.value.quota
+}
+
+resource "azurerm_storage_queue" "storage_queues" {
+  for_each             = var.storage_queues
+  name                 = each.value.name
+  storage_account_name = azurerm_storage_account.storage_account.name
 }
