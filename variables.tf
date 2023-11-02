@@ -1,24 +1,46 @@
-variable "resource_group" {
-  description = "target resource group resource mask"
-  type = object({
-    name     = string
-    location = string
-  })
-}
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
 
-variable "storage_account_name" {
-  description = "Storage account name"
+variable "resource_group_name" {
+  description = "name of the resource group to create the resource"
   type        = string
-  default     = "storageaccount"
 }
 
-variable "storage_account" {
-  description = "storage account config"
-  type = object({
-    account_tier             = string
-    account_replication_type = string
-    tags                     = map(string)
-  })
+variable "location" {
+  description = "(Required) The Azure Region where the Resource Group and storage Account should exist. Changing this forces a new Resource Group and storage Account to be created."
+  type        = string
+}
+
+
+variable "name" {
+  description = "(Required) The Name which should be used for this storage account. Changing this forces a new storage account to be created."
+  type        = string
+}
+
+
+variable "account_replication_type" {
+  description = "Storage account replication type - i.e. LRS, GRS, RAGRS, ZRS, GZRS, RAGZRS."
+  type        = string
+}
+
+variable "account_tier" {
+  description = "Defines the Tier to use for this storage account (Standard or Premium)."
+  type        = string
+}
+
+variable "tags" {
+  description = "(Optional) A mapping of tags which should be assigned to the Storage Account."
+  type        = map(string)
+  default     = {}
 }
 
 variable "storage_containers" {
@@ -124,6 +146,3 @@ variable "blob_container_delete_retention_policy" {
   type        = number
   default     = 0
 }
-
-
-

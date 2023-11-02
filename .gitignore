@@ -4,7 +4,7 @@ components/
 .semverbot.toml
 .tflint.hcl
 .golangci.yaml
-.vscode
+
 .idea
 !examples/*.tfvars
 
@@ -30,6 +30,7 @@ crash.*.log
 # control as they are data points which are potentially sensitive and subject
 # to change depending on the environment.
 *.tfvars.json
+*.auto.tfvars
 
 # Ignore override files as they are usually used to override resources locally and so
 # are not checked in
@@ -53,3 +54,9 @@ terraform.rc
 azure_env.sh
 .releaserc.json
 .tflint.hcl
+
+# Pre-commit hook
+.pre-commit-config.yaml
+
+# VS Code
+.vscode/

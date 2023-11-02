@@ -1,0 +1,16 @@
+# Use this file to preset variables used by the Makefile.
+# This file will be included when make is run. The variables below, will
+# take precedence over what is defined in Makefile when they are set. This
+# allows overriding certain settings without modifying the Makefile.
+
+# REPO_MANIFESTS_URL="https://github.com/nexient-llc/common-automation-framework.git"
+# REPO_BRANCH="main"
+# REPO_MANIFEST="manifests/terraform_modules/seed/manifest.xml"
+# REPO_URL="https://github.com/nexient-llc/git-repo.git"
+# REPO_REV="main"
+# GITBASE="https://github.com/nexient-llc/"
+# GITREV="main"
+# IS_PIPELINE="false"
+# IS_AUTHENTICATED="false"
+# JOB_NAME="job"
+# JOB_EMAIL="job@job.job"
