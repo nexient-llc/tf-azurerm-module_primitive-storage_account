@@ -5,11 +5,11 @@ resource "random_integer" "priority" {
 
 
 module "resource_group" {
-  source = "git::https://github.com/nexient-llc/tf-azurerm-module-resource_group.git?ref=feature/upgrade"
+  source = "git::https://github.com/nexient-llc/tf-azurerm-module-resource_group.git?ref=0.2.0"
 
   name       = local.resource_group_name
   location   = var.location
-  tags       = var.tags
+  tags       = local.tags
   managed_by = var.managed_by
 }
 
