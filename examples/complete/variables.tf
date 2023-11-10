@@ -32,10 +32,10 @@ variable "account_kind" {
 variable "access_tier" {
   description = "Choose between Hot or Cool"
   type        = string
-  default     = "Hot"
+  default     = "HOT"
 
   validation {
-    condition     = (contains(["hot", "cool"], lower(var.access_tier)))
+    condition     = contains(["hot", "cool"], title(var.access_tier))
     error_message = "The account_tier must be either \"Hot\" or \"Cool\"."
   }
 
