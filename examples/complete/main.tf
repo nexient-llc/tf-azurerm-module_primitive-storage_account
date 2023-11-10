@@ -14,7 +14,7 @@ module "resource_group" {
 }
 
 module "storage_account" {
-  depends_on               = [module.resource_group.name]
+  depends_on               = [module.resource_group]
   source                   = "../../"
   name                     = local.name
   resource_group_name      = module.resource_group.name
