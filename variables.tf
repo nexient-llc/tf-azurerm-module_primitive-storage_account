@@ -90,7 +90,7 @@ variable "access_tier" {
   default     = "Hot"
 
   validation {
-    condition     = contains(["hot", "cool"], title(var.access_tier))
+    condition     = contains(["Hot", "Cool"], title(var.access_tier))
     error_message = "The account_tier must be either \"Hot\" or \"Cool\"."
   }
 
