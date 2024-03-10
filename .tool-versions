@@ -1,9 +1,9 @@
-terraform 1.1.7
-tflint 0.34.1
-golang 1.17.6
-golangci-lint 1.46.2 
-nodejs 16.13.2
-opa 0.36.1
-conftest v0.30.0
-pre-commit 2.17.0
-terragrunt 0.36.1
+conftest 0.44.1
+golang 1.21.7
+golangci-lint 1.55.2
+pre-commit 3.3.3
+regula 3.2.1 # https://github.com/nexient-llc/asdf-regula
+terraform 1.5.5
+terraform-docs 0.16.0
+terragrunt 0.39.2
+tflint 0.48.0
