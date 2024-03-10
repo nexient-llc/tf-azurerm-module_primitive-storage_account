@@ -10,10 +10,19 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-output "storage_account" {
-  description = "storage account resource"
-  value       = azurerm_storage_account.storage_account
-  sensitive   = true
+output "id" {
+  description = "The ID of the Storage Account."
+  value       = azurerm_storage_account.storage_account.id
+}
+
+output "primary_location" {
+  description = "The primary location of the storage account."
+  value       = azurerm_storage_account.storage_account.primary_location
+}
+
+output "primary_blob_endpoint" {
+  description = "The endpoint URL for blob storage in the primary location."
+  value       = azurerm_storage_account.storage_account.primary_blob_endpoint
 }
 
 output "storage_containers" {
