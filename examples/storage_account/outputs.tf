@@ -24,4 +24,3 @@ output "resource_group_name" {
   description = "The name of the resource group in which the storage account is created."
   value       = module.resource_group.name
 }
-

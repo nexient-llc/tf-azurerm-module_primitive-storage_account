@@ -149,7 +149,9 @@ No modules.
 
 | Name | Description |
 |------|-------------|
-| <a name="output_storage_account"></a> [storage\_account](#output\_storage\_account) | storage account resource |
+| <a name="output_id"></a> [id](#output\_id) | The ID of the Storage Account. |
+| <a name="output_primary_location"></a> [primary\_location](#output\_primary\_location) | The primary location of the storage account. |
+| <a name="output_primary_blob_endpoint"></a> [primary\_blob\_endpoint](#output\_primary\_blob\_endpoint) | The endpoint URL for blob storage in the primary location. |
 | <a name="output_storage_containers"></a> [storage\_containers](#output\_storage\_containers) | storage container resource map |
 | <a name="output_storage_queues"></a> [storage\_queues](#output\_storage\_queues) | storage queues resource map |
 | <a name="output_storage_shares"></a> [storage\_shares](#output\_storage\_shares) | storage share resource map |

@@ -48,7 +48,7 @@ module "resource_group" {
 
 # This module generates the resource-name of resources based on resource_type, naming_prefix, env etc.
 module "resource_names" {
-  source = "git::https://github.com/nexient-llc/tf-module-resource_name.git?ref=1.1.0"
+  source = "git::https://github.com/nexient-llc/tf-module-resource_name.git?ref=feature/add-new-output"
 
   for_each = var.resource_names_map
 
